@@ -3,6 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="user"
             type="in.samvidinfotech.bindingdemo.UserData" />
@@ -18,12 +19,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:checked="@={user.adult}"
+                android:onClick="@{() -> user.toastCheckboxState(context, checkbox)}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <EditText
                 android:id="@+id/firstName"
                 android:text="@{user.firstName}"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:hint="First Name"
+                android:visibility="@{checkbox.checked ? View.VISIBLE : View.INVISIBLE}"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_height="wrap_content"/>
@@ -34,6 +43,7 @@
                 android:layout_width="0dp"
                 android:hint="Last Name"
                 android:text="@{user.lastName}"
+                android:visibility="@{firstName.visibility}"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_height="wrap_content"/>
